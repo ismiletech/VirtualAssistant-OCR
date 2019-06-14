@@ -1,0 +1,25 @@
+{
+  "name": "virtualassitant-ocr",
+  "version": "1.0.0",
+  "description": "Recognize printed and handwritten text using Azure Cognitive Services",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ismiletechnologies/VirtualAssistant-OCR.git"
+  },
+  "keywords": [
+    "node.js"
+  ],
+  "author": "Shehan Atuk",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ismiletechnologies/VirtualAssistant-OCR/issues"
+  },
+  "homepage": "https://github.com/ismiletechnologies/VirtualAssistant-OCR#readme",
+  "dependencies": {
+    "request": "^2.88.0"
+  }
+}
