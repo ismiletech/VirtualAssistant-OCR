@@ -7,3 +7,4 @@
 * Run ```npm install```
 * Run ```node get-printed-text.js```
 
+* create app where you can upload an image and the image text will be extracted and shown to user.
