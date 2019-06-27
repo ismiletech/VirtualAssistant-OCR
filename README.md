@@ -7,4 +7,6 @@
 * Run ```npm install```
 * Run ```node get-printed-text.js```
 
-* create app where you can upload an image and the image text will be extracted and shown to user, in the future add the extracted text into a file.
+* 1. Developing an OCR  website (using Azure Vision API), angular app on Azure  and publish the same to marketplace
+* 2. Start learning terraform
+
