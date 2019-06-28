@@ -7,6 +7,8 @@
 * Run ```npm install```
 * Run ```node get-printed-text.js```
 
+
+### Tasks 
 * 1. Developing an OCR  website (using Azure Vision API), angular app on Azure  and publish the same to marketplace
 * 2. Start learning terraform
 
