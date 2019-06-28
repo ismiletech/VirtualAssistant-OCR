@@ -11,7 +11,7 @@ const subscriptionKey = process.env.AZURECOMPUTERVISIONSUBSCRIPTIONKEY;
 const uriBase = "https://eastus.api.cognitive.microsoft.com/vision/v2.0/ocr";
 
 const imageUrl =
-  "https://flyingfishcattle.s3.amazonaws.com/samplePic-1561764480194.jpg";
+  "https://flyingfishcattle.s3.amazonaws.com/samplePic-1561764480194.jpg";//sample image from AWS S3 bucket 
 
 // Request parameters.
 const params = {
