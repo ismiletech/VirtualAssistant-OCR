@@ -8,9 +8,9 @@ const url = require("url");
 const router = express.Router();
 
 const s3 = new aws.S3({
-  accessKeyId: "AKIAIHDP7GKHX7CS7V2Q",
-  secretAccessKey: "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",
-  Bucket: "flyingfishcattle"
+  accessKeyId: "<InsertKeyId>",
+  secretAccessKey: "<InsertSecretAccessKey>",
+  Bucket: "<InsertBucketName>"
 });
 
 const singleImgUpload = multer({
