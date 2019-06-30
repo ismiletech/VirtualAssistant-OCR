@@ -21,12 +21,18 @@ export default class Home extends Component {
     this.state = {
       selectedFile: null,
       selectedFiles: null,
+      pdfFile: null,
       loading: false,
-      buttonText: ""
+      buttonText: "",
+      wordList: ""
     };
   }
   componentDidMount() {
-    this.setState({ buttonText: "Upload" });
+    this.setState({
+      loading: false,
+      buttonText: "Upload",
+      wordList: ""
+    });
   }
   singleFileChangedHandler = (event) => {
     this.setState({
@@ -34,8 +40,67 @@ export default class Home extends Component {
     });
   };
 
+  pdfFileChangedHandler = (event) => {
+    this.setState({
+      pdfFile: event.target.files[0]
+    });
+  };
+  pdfFileUploadHandler = () => {
+    this.setState({
+      loading: true
+    });
+    const pdfData = new FormData();
+    if (this.state.pdfFile) {
+      pdfData.append("pdf", this.state.pdfFile, this.state.pdfFile.name);
+      axios
+        .post("/api/image/pdf", pdfData, {
+          headers: {
+            "Accept-Language": "en-US,en;q=0.8",
+            accept: "application/json",
+            "Content-Type": `multipart/form-data; boundary=${
+              pdfData._boundary
+            }`,
+            "Access-Control-Allow-Origin": "*"
+          }
+        })
+        .then((res) => {
+          if (res.status == 200) {
+            if (res.data.error) {
+              if ("LIMIT_FILE_SIZE" === res.data.error.code) {
+                console.log(res.data.error);
+                this.setState({
+                  loading: false
+                });
+              } else {
+                console.log(res.data.error);
+                this.setState({
+                  loading: false
+                });
+              }
+            } else {
+              console.log(res); //success
+            }
+          }
+        })
+        .catch((error) => {
+          console.log(error); //error handling for now, call alert function later
+          this.setState({
+            loading: false
+          });
+        });
+    } else {
+      console.log("Please upload a valid pdf file!");
+      this.setState({
+        loading: false
+      });
+    }
+  };
   singleFileUploadHandler = () => {
-    this.setState({ loading: true, buttonText: "Uploading" });
+    this.setState({
+      loading: true,
+      buttonText: "Uploading",
+      wordList: ""
+    });
     this.buttonText = "Uploading";
     const data = new FormData();
     //if file selected
@@ -73,42 +138,69 @@ export default class Home extends Component {
               this.ocShowAlert("File Uploaded Succesfully", "#3089cf");
               this.setState({ loading: false, buttonText: "Upload" });
               let fileUrl = res.data.location;
-              console.log(process.env.AZURECOMPUTERVISIONSUBSCRIPTIONKEY);
-              const ocrSubKey = "<InsertAzureComputerVisionSubKeyHere>";
-              const uriBase =
-                "https://eastus.api.cognitive.microsoft.com/vision/v2.0/ocr";
-              const params = {
-                language: "unk",
-                detectOrientation: "true"
-              };
-              const options = {
-                uri: uriBase,
-                qs: params,
-                body: '{"url": ' + '"' + fileUrl + '"}',
-                headers: {
-                  "Content-Type": "application/json",
-                  "Ocp-Apim-Subscription-Key": ocrSubKey
-                }
-              };
-              request.post(options, (error, response, body) => {
-                if (error) {
-                  console.log("Error: ", error);
-                  return;
-                }
-                let jsonResponse = JSON.stringify(JSON.parse(body), null, "  ");
-                console.log(jsonResponse);
-              });
+              this.getOCRDataHandler(fileUrl);
             }
           }
         })
         .catch((error) => {
           this.ocShowAlert(error, "red");
-          this.setState({ loading: false, buttonText: "Upload" });
         });
     } else {
       this.ocShowAlert("Please upload a valid image file", "red");
       this.setState({ loading: false, buttonText: "Upload" });
     }
+  };
+
+  getOCRDataHandler = (fileUrl) => {
+    //getting and rendering the extracted text from the image url
+    const ocrSubKey = "4464eb0126f3412bb7ebe37d44ea9d9d";
+    const uriBase =
+      "https://eastus.api.cognitive.microsoft.com/vision/v2.0/ocr";
+    const params = {
+      language: "unk",
+      detectOrientation: "true"
+    };
+    const options = {
+      uri: uriBase,
+      qs: params,
+      body: '{"url": ' + '"' + fileUrl + '"}',
+      headers: {
+        "Content-Type": "application/json",
+        "Ocp-Apim-Subscription-Key": ocrSubKey
+      }
+    };
+    request.post(options, (error, response, body) => {
+      if (error) {
+        console.log("Error: ", error);
+        return;
+      }
+      let obj = JSON.parse(body);
+      let extractedWords = "Extracted Words: ";
+      try {
+        for (var c = 0; c < obj.regions.length; c++) {
+          for (var i = 0; i < obj.regions[c].lines.length; i++) {
+            for (var j = 0; j < obj.regions[c].lines[i].words.length; j++) {
+              extractedWords += obj.regions[c].lines[i].words[j].text + ", ";
+            }
+          }
+        }
+        if (extractedWords === "Extracted Words: ") {
+          extractedWords += "No words were found!";
+        }
+        this.setState({
+          loading: false,
+          buttonText: "Upload",
+          wordList: extractedWords
+        });
+      } catch (err) {
+        extractedWords += "No words were found!";
+        this.setState({
+          loading: false,
+          buttonText: "Upload",
+          wordList: extractedWords
+        });
+      }
+    });
   };
 
   //alert showing function
@@ -140,13 +232,13 @@ export default class Home extends Component {
               Upload an image with text to be extracted:
             </p>
             <input
-              className="home__card__body__fileInput"
+              className="home__card__body--fileInput"
               type="file"
               onChange={this.singleFileChangedHandler}
             />
-            <div className="mt-5 home__submitForm">
+            <div className="mt-5 home__card__submitForm">
               <button
-                className="btn btn-info home__submitForm--button"
+                className="btn btn-info home__card__submitForm--button"
                 onClick={this.singleFileUploadHandler}
                 disabled={this.state.loading}
               >
@@ -160,6 +252,35 @@ export default class Home extends Component {
                   color={"#123abc"}
                   loading={this.state.loading}
                 />
+              </div>
+              <div className="home__card__result">
+                <h3 className="home__card__result--text">
+                  {this.state.wordList}
+                </h3>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="home__pdf">
+          <div className="home__pdf__body">
+            <p className="home__pdf__body--text">
+              Upload a pdf with text in it
+            </p>
+            <input
+              className="home__pdf__body--fileInput"
+              type="file"
+              onChange={this.pdfFileChangedHandler}
+            />
+            <div className="home__pdf__submitForm">
+              <button
+                className="btn btn-info home__pdf__submitForm--button"
+                onClick={this.pdfFileUploadHandler}
+                disabled={this.state.loading}
+              >
+                Upload
+              </button>
+              <div className="home__card__result">
+                <h3 className="home__card__result--text">Result</h3>
               </div>
             </div>
           </div>

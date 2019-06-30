@@ -4,12 +4,13 @@ const multerS3 = require("multer-s3");
 const multer = require("multer");
 const path = require("path");
 const url = require("url");
+const pdfImage = require("pdf-image").PDFImage;
 
 const router = express.Router();
 
 const s3 = new aws.S3({
-  accessKeyId: "AKIAIHDP7GKHX7CS7V2Q",
-  secretAccessKey: "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",
+  accessKeyId: "AKIAWOT4ZU3MPP2CZ5UD",
+  secretAccessKey: "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",
   Bucket: "flyingfishcattle"
 });
 
@@ -49,7 +50,30 @@ function checkFileType(file, cb) {
   }
 }
 
+const storage = multer.diskStorage({
+  destination: function(req, file, cb) {
+    cb(null, path.join(__dirname + "/uploads/"));
+  },
+  filename: function(req, file, cb) {
+    // let pdfName = "samplePDF";
+    // req.body.file = pdfName;
+    cb(null, file.originalname);
+  }
+});
+
+const upload = multer({
+  storage: storage
+});
+router.post("/pdf", upload.single("pdf"), (req, res, next) => {
+  // const pdf = req.file.key;
+  // const uploadPath = __dirname + pdf.name;
+  var pdfImage = new PDFImage(__dirname + "/uploads/sample.pdf");
+  pdfImage.convertPage(0).then(function(imagePath) {
+    fs.existsSync(__dirname + "/uploads/sample.png");
+  });
+});
 router.post("/upload", (req, res) => {
+  console.log(req.file);
   singleImgUpload(req, res, (error) => {
     if (error) {
       //return error in json
