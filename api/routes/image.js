@@ -9,9 +9,9 @@ const pdfImage = require("pdf-image").PDFImage;
 const router = express.Router();
 
 const s3 = new aws.S3({
-  accessKeyId: "AKIAWOT4ZU3MPP2CZ5UD",
-  secretAccessKey: "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",
-  Bucket: "flyingfishcattle"
+  accessKeyId: "<InsertKey>",
+  secretAccessKey: "<InsertSecret>",
+  Bucket: "<InsertBucketName>"
 });
 
 const singleImgUpload = multer({
