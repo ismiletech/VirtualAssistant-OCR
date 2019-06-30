@@ -4,13 +4,14 @@ const multerS3 = require("multer-s3");
 const multer = require("multer");
 const path = require("path");
 const url = require("url");
-const pdfImage = require("pdf-image").PDFImage;
+const fs = require("fs");
+const convertPdf = require("pdf-poppler");
 
 const router = express.Router();
 
 const s3 = new aws.S3({
-  accessKeyId: "AKIAWOT4ZU3MPP2CZ5UD",
-  secretAccessKey: "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",
+  accessKeyId: "AKIAJQIPU6BTUDAZCEAQ",
+  secretAccessKey: "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",
   Bucket: "flyingfishcattle"
 });
 
@@ -64,13 +65,37 @@ const storage = multer.diskStorage({
 const upload = multer({
   storage: storage
 });
+
 router.post("/pdf", upload.single("pdf"), (req, res, next) => {
-  // const pdf = req.file.key;
-  // const uploadPath = __dirname + pdf.name;
-  var pdfImage = new PDFImage(__dirname + "/uploads/sample.pdf");
-  pdfImage.convertPage(0).then(function(imagePath) {
-    fs.existsSync(__dirname + "/uploads/sample.png");
+  const uploadPath = req.file.path;
+  var imagePath =
+    req.file.destination + req.file.originalname.slice(0, -4) + "-1.jpg";
+  let opts = {
+    format: "jpg",
+    out_dir: req.file.destination,
+    out_prefix: path.basename(req.file.path).slice(0, -4),
+    page: null
+  };
+  var pdfTojpg = convertPdf.convert(uploadPath, opts).then((pdfinfo) => {
+    console.log(pdfinfo);
   });
+
+  pdfTojpg.catch((err) => {
+    console.error(err);
+  });
+  pdfTojpg.then(() => {
+    try {
+      if (fs.existsSync(imagePath)) {
+        console.log(imagePath);
+      } else {
+        console.log("NOT PASSING");
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  });
+
+  res.send("success!");
 });
 router.post("/upload", (req, res) => {
   console.log(req.file);
