@@ -79,6 +79,9 @@ export default class Home extends Component {
               }
             } else {
               console.log(res); //success
+              this.setState({
+                loading: false
+              });
             }
           }
         })
@@ -262,13 +265,15 @@ export default class Home extends Component {
           </div>
         </div>
         <div className="home__pdf">
-          <div className="home__pdf__body">
-            <p className="home__pdf__body--text">
+          <form className="home__pdf__form" encType="multipart/form-data">
+            <p className="home__pdf__form--text">
               Upload a pdf with text in it
             </p>
             <input
-              className="home__pdf__body--fileInput"
+              className="home__pdf__form--fileInput"
               type="file"
+              name="pdf"
+              id="pdf"
               onChange={this.pdfFileChangedHandler}
             />
             <div className="home__pdf__submitForm">
@@ -283,7 +288,7 @@ export default class Home extends Component {
                 <h3 className="home__card__result--text">Result</h3>
               </div>
             </div>
-          </div>
+          </form>
         </div>
       </div>
     );
