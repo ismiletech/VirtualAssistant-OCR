@@ -19,7 +19,7 @@ const s3 = new aws.S3({
 const singleImgUpload = multer({
   storage: multerS3({
     s3: s3,
-    bucket: "flyingfishcattle",
+    bucket: "<InsertBucketName>",
     acl: "public-read",
     key: function(req, file, cb) {
       cb(
@@ -89,7 +89,7 @@ router.post("/pdf", upload.single("pdf"), (req, res, next) => {
       console.log(data);
       if (err) throw err;
       const params = {
-        Bucket: "flyingfishcattle",
+        Bucket: "<InsertBucketName>",
         Key: path.basename(imagePath),
         Body: data,
         ACL: "public-read"
