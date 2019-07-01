@@ -11,9 +11,9 @@ const AWS = require("aws-sdk");
 const router = express.Router();
 
 const s3 = new aws.S3({
-  accessKeyId: "AKIAJQIPU6BTUDAZCEAQ",
-  secretAccessKey: "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",
-  Bucket: "flyingfishcattle"
+  accessKeyId: "<InsertKeyId>",
+  secretAccessKey: "<InsertSecretAccessKey>",
+  Bucket: "<InsertBucketName>"
 });
 
 const singleImgUpload = multer({
