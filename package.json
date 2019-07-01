@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon server.js",
-    "server": "nodemon server.js",
+    "server": "nodemon server.js --inspect='0.0.0.0:4000'",
     "client-install": "npm install  --prefix client",
     "client": "npm start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
@@ -25,7 +25,7 @@
   },
   "homepage": "https://github.com/ismiletechnologies/VirtualAssistant-OCR#readme",
   "dependencies": {
-    "aws-sdk": "^2.484.0",
+    "aws-sdk": "^2.485.0",
     "body-parser": "^1.19.0",
     "concurrently": "^4.1.1",
     "cors": "^2.8.5",
