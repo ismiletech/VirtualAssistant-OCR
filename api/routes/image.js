@@ -6,6 +6,7 @@ const path = require("path");
 const url = require("url");
 const fs = require("fs");
 const convertPdf = require("pdf-poppler");
+const AWS = require("aws-sdk");
 
 const router = express.Router();
 
@@ -84,18 +85,47 @@ router.post("/pdf", upload.single("pdf"), (req, res, next) => {
     console.error(err);
   });
   pdfTojpg.then(() => {
-    try {
-      if (fs.existsSync(imagePath)) {
-        console.log(imagePath);
-      } else {
-        console.log("NOT PASSING");
+    fs.readFile(imagePath, (err, data) => {
+      console.log(data);
+      if (err) throw err;
+      const params = {
+        Bucket: "flyingfishcattle",
+        Key: path.basename(imagePath),
+        Body: data,
+        ACL: "public-read"
+      };
+      s3.upload(params, (s3Error, data) => {
+        if (s3Error) throw s3Error;
+        console.log(data);
+        console.log(`File uploaded successfully at ${data.Location}`);
+        res.json({
+          image: data.key,
+          location: data.Location
+        });
+      });
+    });
+  });
+});
+router.post("/jpg", (req, res) => {
+  singleImgUpload(req, res, (error) => {
+    if (error) {
+      console.log("errors", error);
+      res.json({ error: error });
+    } else {
+      if (req.file === undefined) {
+        console.log("Error: No File Selected");
+        res.json("Error: No File Selected");
       }
-    } catch (err) {
-      console.error(err);
+
+      const jpgName = req.file.key;
+      const jpgLocation = req.file.location;
+
+      res.json({
+        jpg: jpgName,
+        location: jpgLocation
+      });
     }
   });
-
-  res.send("success!");
 });
 router.post("/upload", (req, res) => {
   console.log(req.file);
@@ -121,7 +151,7 @@ router.post("/upload", (req, res) => {
       });
     }
   });
-  res.send("Successfully uploaded " + req.files.length + " files!");
+  res.send("Successfully uploaded " + req.files.length + " file!");
   //for uploading multiple files
 });
 

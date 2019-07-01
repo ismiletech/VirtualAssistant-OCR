@@ -4,7 +4,7 @@ import $ from "jquery";
 import { css } from "@emotion/core";
 import { ClipLoader } from "react-spinners";
 const request = require("request");
-
+const path = require("path");
 //or use ```import ClipLoader from "react-spinner/ClipLoader";```
 const override = css`
   display: block;
@@ -64,33 +64,63 @@ export default class Home extends Component {
           }
         })
         .then((res) => {
-          if (res.status == 200) {
-            if (res.data.error) {
-              if ("LIMIT_FILE_SIZE" === res.data.error.code) {
-                console.log(res.data.error);
-                this.setState({
-                  loading: false
-                });
-              } else {
-                console.log(res.data.error);
-                this.setState({
-                  loading: false
-                });
-              }
-            } else {
-              console.log(res); //success
-              this.setState({
-                loading: false
-              });
-            }
-          }
-        })
-        .catch((error) => {
-          console.log(error); //error handling for now, call alert function later
-          this.setState({
-            loading: false
-          });
+          let fileName = res.data;
+          console.log("filedata", fileName);
+          this.ocShowAlert("File Uploaded Succesfully", "#3089cf");
+          this.setState({ loading: false, buttonText: "Upload" });
+          let fileUrl = res.data.location;
+          this.getOCRDataHandler(fileUrl);
+          // const jpgPath = res.data;
+          // const jpgData = new FormData();
+
+          // jpgData.append(
+          //   "image",
+          //   new File(jpgPath, path.basename(jpgPath)),
+          //   path.basename(jpgPath)
+          // );
+          // console.log(jpgPath);
+          // console.log(jpgData);
+          // return jpgData;
         });
+      // .then((jpgData) => {
+
+      //   // axios
+      //   //   .post("/api/image/jpg", jpgData, {
+      //   //     headers: {
+      //   //       "Accept-Language": "en-US,en;q=0.8",
+      //   //       accept: "application/json",
+      //   //       "Content-Type": `multipart/form-data; boundary=${
+      //   //         pdfData._boundary
+      //   //       }`,
+      //   //       "Access-Control-Allow-Origin": "*"
+      //   //     }
+      //   //   })
+      //     .then((res) => {
+      //       if (res.status === 200) {
+      //         if (res.data.error) {
+      //           if ("LIMIT_FILE_SIZE" == res.data.error.code) {
+      //             console.log("file too large");
+      //             this.setState({ loading: false });
+      //           } else {
+      //             console.log(res.data);
+      //             this.setState({ loading: false });
+      //           }
+      //         } else {
+      //           let fileName = res.data;
+      //           console.log("filedata", fileName);
+      //           this.setState({ loading: false });
+      //           let fileUrl = res.data.location;
+      //           this.getOCRDataHandler(fileUrl);
+      //         }
+      //       }
+      //     });
+      // });
+      // .catch((error) => {
+      //   console.log(error); //error handling for now, call alert function later
+      //   this.setState({
+      //     loading: false
+      //   });
+      // });
     } else {
       console.log("Please upload a valid pdf file!");
       this.setState({
@@ -139,7 +169,6 @@ export default class Home extends Component {
               let fileName = res.data;
               console.log("filedata", fileName);
               this.ocShowAlert("File Uploaded Succesfully", "#3089cf");
-              this.setState({ loading: false, buttonText: "Upload" });
               let fileUrl = res.data.location;
               this.getOCRDataHandler(fileUrl);
             }
@@ -177,6 +206,7 @@ export default class Home extends Component {
         console.log("Error: ", error);
         return;
       }
+      console.log(body);
       let obj = JSON.parse(body);
       let extractedWords = "Extracted Words: ";
       try {
