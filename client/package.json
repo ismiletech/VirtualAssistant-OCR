@@ -39,6 +39,25 @@
     "url": "^0.11.0",
     "xss-filters": "^1.2.7"
   },
+  "devDependencies": {
+    "babel-eslint": "^10.0.1",
+    "core-js": "^3.1.4",
+    "cross-env": "^5.0.1",
+    "husky": "^0.14.3",
+    "lint-staged": "^4.0.2",
+    "material-ui": "^0.18.7",
+    "nightmare": "^2.10.0",
+    "nightmare-upload": "^0.1.1",
+    "node-fetch": "^1.7.1",
+    "node-sass-chokidar": "^0.0.3",
+    "normalize.css": "^8.0.1",
+    "npm-run-all": "^4.0.2",
+    "prettier": "^1.5.3",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-tap-event-plugin": "^3.0.3",
+    "standard": "^10.0.2"
+  },
   "scripts": {
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
