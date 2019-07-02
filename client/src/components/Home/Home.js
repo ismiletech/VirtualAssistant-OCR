@@ -185,7 +185,7 @@ export default class Home extends Component {
 
   getOCRDataHandler = (fileUrl) => {
     //getting and rendering the extracted text from the image url
-    const ocrSubKey = "4464eb0126f3412bb7ebe37d44ea9d9d";
+    const ocrSubKey = "<InsertOCRApiKey>";
     const uriBase =
       "https://eastus.api.cognitive.microsoft.com/vision/v2.0/ocr";
     const params = {
