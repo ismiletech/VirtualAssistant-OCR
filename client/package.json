@@ -3,27 +3,87 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "aws-sdk": "^2.486.0",
     "axios": "^0.19.0",
+    "body-parser": "^1.19.0",
+    "bootstrap": "^4.3.1",
+    "cors": "^2.8.5",
+    "electron": "^5.0.5",
+    "file-type": "^12.0.0",
+    "formidable": "^1.2.1",
+    "formsy-material-ui": "^0.6.3",
+    "formsy-react": "^1.1.5",
+    "fs": "0.0.1-security",
+    "gh-pages": "^2.0.1",
     "jquery": "^3.4.1",
+    "morgan": "^1.9.1",
+    "multer": "^1.4.1",
+    "multer-s3": "^2.9.0",
+    "node-sass": "^4.12.0",
+    "nodemon": "^1.19.1",
+    "path": "^0.12.7",
+    "pdf-poppler": "^0.2.1",
     "prop-types": "^15.7.2",
     "qs": "^6.7.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-ga": "^2.6.0",
+    "react-helmet": "^5.2.1",
+    "react-masonry-component": "^6.2.1",
     "react-redux": "^7.1.0",
     "react-router-dom": "^5.0.1",
     "react-scripts": "^3.0.1",
     "react-spinners": "^0.5.4",
     "redux": "^4.0.1",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "url": "^0.11.0",
+    "xss-filters": "^1.2.7"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
+    "build-css": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/",
+    "watch-css": "npm run build-css && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ --watch --recursive",
+    "start-js": "PORT=4000 react-scripts start",
+    "start-server": "nodemon server.js -w server.js",
+    "dev": "npm-run-all -p watch-css start start-server",
+    "start": "NODE_ENV=production node server.js",
+    "build": "npm run build-css && react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "test-without-watch": "cross-env CI=true npm test",
+    "eject": "react-scripts eject",
+    "lint": "prettier 'src/**/*.js' 'src/components/**/*.js' '*.js' --write --single-quote --no-semi && standard --fix",
+    "precommit": "lint-staged && npm run test-without-watch",
+    "heroku-postbuild": "npm run build"
   },
-  "eslintConfig": {
-    "extends": "react-app"
+  "lint-staged": {
+    "*.js": [
+      "prettier --write --single-quote --no-semi",
+      "standard --fix",
+      "git add"
+    ]
+  },
+  "standard": {
+    "globals": [
+      "fetch",
+      "FormData",
+      "describe",
+      "it",
+      "beforeEach",
+      "expect",
+      "handleClose",
+      "stable",
+      "handleNext",
+      "handlePrev",
+      "handleChange",
+      "formatLabelProperty",
+      "handleFilePath",
+      "handleFormData",
+      "handleDialogClose",
+      "componentDidMount",
+      "handleTabChange"
+    ],
+    "parser": "babel-eslint"
   },
   "browserslist": {
     "production": [
