@@ -11,7 +11,11 @@ const override = css`
   margin: 0 auto;
   border-color: red;
 `;
+<<<<<<< HEAD
 var port = 3000;
+=======
+var port = 4000;
+>>>>>>> 36c26ed68324b2fee999d5cc2a6518054db6ecaa
 axios.defaults.baseURL =
   window.location.protocol + "//" + window.location.hostname + ":" + port;
 
@@ -70,7 +74,61 @@ export default class Home extends Component {
           this.setState({ loading: false, buttonText: "Upload" });
           let fileUrl = res.data.location;
           this.getOCRDataHandler(fileUrl);
+<<<<<<< HEAD
         });
+=======
+          // const jpgPath = res.data;
+          // const jpgData = new FormData();
+
+          // jpgData.append(
+          //   "image",
+          //   new File(jpgPath, path.basename(jpgPath)),
+          //   path.basename(jpgPath)
+          // );
+          // console.log(jpgPath);
+          // console.log(jpgData);
+          // return jpgData;
+        });
+      // .then((jpgData) => {
+
+      //   // axios
+      //   //   .post("/api/image/jpg", jpgData, {
+      //   //     headers: {
+      //   //       "Accept-Language": "en-US,en;q=0.8",
+      //   //       accept: "application/json",
+      //   //       "Content-Type": `multipart/form-data; boundary=${
+      //   //         pdfData._boundary
+      //   //       }`,
+      //   //       "Access-Control-Allow-Origin": "*"
+      //   //     }
+      //   //   })
+      //     .then((res) => {
+      //       if (res.status === 200) {
+      //         if (res.data.error) {
+      //           if ("LIMIT_FILE_SIZE" == res.data.error.code) {
+      //             console.log("file too large");
+      //             this.setState({ loading: false });
+      //           } else {
+      //             console.log(res.data);
+      //             this.setState({ loading: false });
+      //           }
+      //         } else {
+      //           let fileName = res.data;
+      //           console.log("filedata", fileName);
+      //           this.setState({ loading: false });
+      //           let fileUrl = res.data.location;
+      //           this.getOCRDataHandler(fileUrl);
+      //         }
+      //       }
+      //     });
+      // });
+      // .catch((error) => {
+      //   console.log(error); //error handling for now, call alert function later
+      //   this.setState({
+      //     loading: false
+      //   });
+      // });
+>>>>>>> 36c26ed68324b2fee999d5cc2a6518054db6ecaa
     } else {
       console.log("Please upload a valid pdf file!");
       this.setState({
