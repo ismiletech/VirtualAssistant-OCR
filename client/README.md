@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 # VirtualAssitant-OCR<br>
 ### Recognize printed and handwritten text using Azure Cognitive Services<br>
 
@@ -18,6 +19,8 @@
 * 2. Start learning terraform
 
 =======
+=======
+>>>>>>> 36c26ed68324b2fee999d5cc2a6518054db6ecaa
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
@@ -86,4 +89,7 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 ### `npm run build` fails to minify
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+<<<<<<< HEAD
+>>>>>>> 36c26ed68324b2fee999d5cc2a6518054db6ecaa
+=======
 >>>>>>> 36c26ed68324b2fee999d5cc2a6518054db6ecaa

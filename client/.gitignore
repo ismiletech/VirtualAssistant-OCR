@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 # Logs
 logs
 *.log
@@ -64,6 +65,8 @@ typings/
 # node_modules
 node_modules
 =======
+=======
+>>>>>>> 36c26ed68324b2fee999d5cc2a6518054db6ecaa
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
@@ -89,4 +92,7 @@ yarn-debug.log*
 yarn-error.log*
 
 
+<<<<<<< HEAD
+>>>>>>> 36c26ed68324b2fee999d5cc2a6518054db6ecaa
+=======
 >>>>>>> 36c26ed68324b2fee999d5cc2a6518054db6ecaa
