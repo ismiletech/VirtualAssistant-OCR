@@ -104,6 +104,7 @@
     ],
     "parser": "babel-eslint"
   },
+
   "browserslist": {
     "production": [
       ">0.2%",

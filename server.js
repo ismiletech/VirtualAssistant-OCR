@@ -1,7 +1,9 @@
 const express = require("express");
 const routes = require("./api/routes/index");
 
+
 const port = 3000;
+
 const logger = require("morgan");
 const bodyParser = require("body-parser");
 const path = require("path");
@@ -13,7 +15,9 @@ const corsOptions = {
   optionSuccessStatus: 200
 };
 
+
 app.set("port", process.env.PORT || 3000);
+
 app.use(logger("dev")); //setting dev env
 
 const distDir = __dirname + "/client/public";
