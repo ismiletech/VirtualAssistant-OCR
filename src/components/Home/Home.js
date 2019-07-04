@@ -11,15 +11,9 @@ const override = css`
   margin: 0 auto;
   border-color: red;
 `;
-<<<<<<< HEAD
-<<<<<<< HEAD
-var port = 3000;
-=======
 var port = 4000;
->>>>>>> 36c26ed68324b2fee999d5cc2a6518054db6ecaa
-=======
-var port = 4000;
->>>>>>> 36c26ed68324b2fee999d5cc2a6518054db6ecaa
+
+
 axios.defaults.baseURL =
   window.location.protocol + "//" + window.location.hostname + ":" + port;
 
@@ -78,12 +72,8 @@ export default class Home extends Component {
           this.setState({ loading: false, buttonText: "Upload" });
           let fileUrl = res.data.location;
           this.getOCRDataHandler(fileUrl);
-<<<<<<< HEAD
-<<<<<<< HEAD
+
         });
-=======
-=======
->>>>>>> 36c26ed68324b2fee999d5cc2a6518054db6ecaa
           // const jpgPath = res.data;
           // const jpgData = new FormData();
 
@@ -135,10 +125,7 @@ export default class Home extends Component {
       //     loading: false
       //   });
       // });
-<<<<<<< HEAD
->>>>>>> 36c26ed68324b2fee999d5cc2a6518054db6ecaa
-=======
->>>>>>> 36c26ed68324b2fee999d5cc2a6518054db6ecaa
+
     } else {
       console.log("Please upload a valid pdf file!");
       this.setState({
