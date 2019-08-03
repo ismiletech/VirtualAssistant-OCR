@@ -1,0 +1,8 @@
+{
+"GCLOUD_PROJECT": "cosmic-tenure-241517",
+"CLOUD_BUCKET": "cosmic-tenure-241517.appspot.com",
+"DATA_BACKEND": "datastore",
+"OAUTH2_CLIENT_ID": "830131267680-9iq5a320uais803s2jv9mshj1sv021ja.apps.googleusercontent.com",
+"OAUTH2_CLIENT_SECRET": "QG3dbhV26dqdFuNPYfAzgV1y",
+"OAUTH2_CALLBACK": "http://localhost:8080/auth/google/callback"
+}

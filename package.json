@@ -54,7 +54,7 @@
     "prettier": "^1.5.3"
   },
   "scripts": {
-    "start": "nodemon server.js",
+    "start": "node server.js",
     "heroku-postbuild": "cd client && npm install && npm run build"
   }
 }

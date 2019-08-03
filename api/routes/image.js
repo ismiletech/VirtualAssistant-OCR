@@ -1,4 +1,4 @@
-
+require("dotenv").config();
 const { createWriteStream } = require("fs");
 const path = require("path");
 const express = require("express");
@@ -6,13 +6,19 @@ const express = require("express");
 const { Storage } = require("@google-cloud/storage");
 const router = express.Router();
 const images = require("../lib/images");
-
+console.log("THIS STATEMENT RUNS BEFORE CALLING MULTER");
+console.log("testing1: GOOGLE APPLICATION CREDENTIALS: " + process.env.GOOGLE_APPLICATION_CREDENTIALS);
+console.log("testing1: BUCKET NAME" + process.env.GCS_BUCKET);
+console.log("testing1: PROJECT ID" + process.env.GCLOUD_PROJECT);
 router.post("/upload", 
 images.multer.single('image'),
 images.sendUploadToGCS,
 (req, response, next) => {
       let data = req.body;
       //filename
+      console.log("testing2: GOOGLE APPLICATION CREDENTIALS: " + process.env.GOOGLE_APPLICATION_CREDENTIALS);
+      console.log("testing2: BUCKET NAME" + process.env.GCS_BUCKET);
+      console.log("testing2: PROJECT ID" + process.env.GCLOUD_PROJECT);
     async function extractText(){
       const vision = require('@google-cloud/vision').v1;
       const client = new vision.ImageAnnotatorClient();
@@ -93,6 +99,7 @@ router.post("/uploadImage",
 images.multer.single('image'),
 images.sendUploadToGCS
 ,(req, res, next) => {
+  console.log("image passing1");
   async function extractText(){
     const vision = require('@google-cloud/vision').v1;
     const client = new vision.ImageAnnotatorClient();
@@ -108,7 +115,9 @@ images.sendUploadToGCS
       extractedText: extractedText
     });
   }
+
   extractText();
+  console.log("image passing2");
 
 })
 

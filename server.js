@@ -1,9 +1,9 @@
+require("dotenv").config();
 const express = require("express");
 const path = require("path");
 const app = express();
 const cors = require("cors");
 const port = process.env.PORT || 3000;
-require("dotenv").config();
 app.use(express.static(path.join(__dirname, "client/build")));
 // if (process.env.NODE_ENV === "production") {
 //   app.use(express.static("client/build"));
@@ -60,5 +60,9 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(port, () => {
+  console.log("THIS STATEMENT RUNS BEFORE CALLING MULTER");
+  console.log("testing1: GOOGLE APPLICATION CREDENTIALS: " + process.env.GOOGLE_APPLICATION_CREDENTIALS);
+  console.log("testing1: BUCKET NAME" + process.env.GCS_BUCKET);
+  console.log("testing1: PROJECT ID" + process.env.GCLOUD_PROJECT);
   console.log(`virtualAssitant-OCR app listening on port ${port}`);
 });

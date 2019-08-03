@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "cosmic-tenure-241517",
+  "private_key_id": "2f1ac6df20f15418b70f4a4c7856207458df720f",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCHOt4I2O+EtmgA\nw1YsH7SA9d6HQfjJmYL1XDIxy9oD+K1B5s0P79qHGvYaZdAA2zdQX2YwnTkq74HG\nbe3sUxz5wKTQenQ/Zfdwjup/oZlkioTVjv2LErvUL6mIbzCMELpV+GO3ZiOPEanh\nan+VeY7WZtSCT2Hl1PEeK9wJwF/Sq5snfIewf6bwJuSUpdcyTVfZ7W3s30jMTFSU\nz+7+mdymaMMcapFsJoRAHHisS51RiBt9zohggHPpeKHxSy56vAJVRz9GrCDTxmub\nO5FH25PZ+bQ1Kral/KlNzaKQxpioZYhQjXGxx/ZHewa3jUHYcN8+mLxYkoN0HC3V\nu276dssVAgMBAAECggEADvOVRQknQlcgnKT8TBidTnzgw7epmDCe6B3vds4BJttB\n3L12AsMUOEfk2fpTyyRxszM5Czr27SZaBOR2n+B4nayNDHfdjnzppMpIZyAo45Ll\nKO+MXOoPVmCGsA0LIxFeaM7zx31FhTYAwGmT/aTZBB+Oc3HvcwfeOOXEiFd6wMIL\nWgrMlOWh8P0LyRKmm2oGzfrqCrm3N3mH4kTRjgCY4GHvAryYAEWlkqYo+Y4gMHN3\n4SoZywrQhRn1y32m8cb+PbG9HOAZsUjrJw8xnGV6tNXdJB/+4+vlbk6WSZWBIlVq\n1F30faSHrPqgVHv6NZpmkquqMS2RgunpbrmMj03J6QKBgQC8MTPIqRipkcp/gnUS\n/4w8JGPco3EINiSu6jwX6O9Ph/WEv7DRnwtXKCwcPElUSoubOLriiPb9OpE51TAz\nzbt5zUkqSC7ppytNLJp7/p8wYlnO2I6b4YnN5B67LQXy+M648GflnKJyXlIK7J+V\nOcth6GUTOwsD0GEslzQOX2inuwKBgQC39HESIqtb0ZJsD+n6CeQBoq5hZG5lSZqi\nEdtstnt1+obEYUMD0N0SX6r8j/qXprB1pgXDwuIEAWrfZxhHXJf01AXlj0xwtoMU\nQgfeihAd2zwN/dCjtXDmyCeR0JNmT1TF2BldCZfLyf0OwsqsWhXC+CU3LqMsPn7c\neo4Lbj6jbwKBgDUWzDz3NvXfIvkFnHFXlgABZAqCMQjX/VE60ukL1Tbia+ifCwqX\ni2Ny+b6dYzJcNTX8svvlF4goVX+zHH4As7qQpus+ob1YY2bKBmqkUdQcaqlnfhOL\ndIyYpfK3qM36UpbpeuXTYiBRa2OZjQtT2oQsQxdBuMHCrycdIJpNYACxAoGAea/Y\n8G9Ave+HlbZ9R+stCivsgP6nzJcBFL8NUP/x8dx1NAlHBIoxA8uHV6WC1rjsuBbI\nb3RGgPHTGc+gDuzglJOBBxdhMJp7YXZAsGTSPn3dX0AMuY74DaJQErRQHXjTEkFe\nnd4PrT6ECTSwT40UIjJ2o+dVB5qb3wuvVT5rbz8CgYEAscJJNgXky62wIvoaadys\ni8dm2Lm8n2ClU21NSwNF++J/deLhBcLL8gxg/Y3PsiGEU+M2/hU+eMEir0Y3vlFf\nqSjtpVBm3240t0nQ7Nm/QmHYA9/NoaJMSWEP+wBGmocIDaZGY7sDSQH+5Kqyq9Ij\nHaKcMAUAshJiMvfd6gPxFsw=\n-----END PRIVATE KEY-----\n",
+  "client_email": "virtualassistant@cosmic-tenure-241517.iam.gserviceaccount.com",
+  "client_id": "110316594584690795672",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/virtualassistant%40cosmic-tenure-241517.iam.gserviceaccount.com"
+}

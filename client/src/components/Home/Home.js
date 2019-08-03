@@ -12,7 +12,7 @@ const override = css`
   border-color: red;
 `;
 var port = 4000;
-axios.defaults.baseURL = process.env.baseURL || "http://localhost:3000";
+axios.defaults.baseURL = "https://virtualassistant123.azurewebsites.net";
 
 export default class Home extends Component {
   constructor(props) {
@@ -23,14 +23,16 @@ export default class Home extends Component {
       pdfFile: null,
       loading: false,
       buttonText: "",
-      wordList: ""
+      wordList: "",
+      resultString: ""
     };
   }
   componentDidMount() {
     this.setState({
       loading: false,
       buttonText: "Upload",
-      wordList: ""
+      wordList: "",
+      resultString: ""
     });
   }
   singleFileChangedHandler = (event) => {
@@ -44,7 +46,8 @@ export default class Home extends Component {
       this.setState({
         loading: true,
         buttonText: "Uploading",
-        wordList: ""
+        wordList: "",
+        resultString: "Extracting text, Please Wait..."
       });
       this.buttonText = "Uploading";
       const data = new FormData();
@@ -56,63 +59,7 @@ export default class Home extends Component {
           this.state.selectedFile.name
         ); //setting image formdata object: uploaded file
         axios
-          .post("http://localhost:3000/api/image/uploadImage", data, {
-            headers: {
-              "Accept-Language": "en-US,en;q=0.8",
-              accept: "application/json",
-              "Content-Type": `multipart/form-data; boundary=${data._boundary}`,
-              "Access-Control-Allow-Origin": "*"
-            }
-          })
-          .then((res) => {
-            if (res.status === 200) {
-              if (res.data.error) {
-                //file size was larger than 2mb
-                if ("LIMIT_FILE_SIZE" === res.data.error.code) {
-                  this.ocShowAlert("Max size: 2MB", "red");
-                  this.setState({ loading: false, buttonText: "Upload" });
-                } else {
-                  //if not, show error to user
-                
-                  this.ocShowAlert(res.data.error, "red");
-                  this.setState({ loading: false, buttonText: "Upload" });
-                }
-              } else {
-                let fileName = res.data;
-        
-                this.setState({
-                  loading: false,
-                  wordList: res.data.extractedText
-                });
-                this.ocShowAlert("File Uploaded Succesfully", "#3089cf");
-                let fileUrl = res.data.imageUrl;
-              }
-            }
-          })
-          .catch((error) => {
-            this.ocShowAlert(error, "red");
-          });
-      } else {
-        this.ocShowAlert("Please upload a valid image file", "red");
-        this.setState({ loading: false, buttonText: "Upload" });
-      }
-  }else if(type === "pdfUpload"){
-      this.setState({
-        loading: true,
-        buttonText: "Uploading",
-        wordList: ""
-      });
-      this.buttonText = "Uploading";
-      const data = new FormData();
-      //if file selected
-      if (this.state.selectedFile) {
-        data.append(
-          "image",
-          this.state.selectedFile,
-          this.state.selectedFile.name
-        ); //setting image formdata object: uploaded file
-        axios
-          .post("http://localhost:3000/api/image/upload", data, {
+          .post("https://virtualassistant123.azurewebsites.net/api/image/uploadImage", data, {
             headers: {
               "Accept-Language": "en-US,en;q=0.8",
               accept: "application/json",
@@ -139,7 +86,67 @@ export default class Home extends Component {
                 this.setState({
                   loading: false,
                   wordList: res.data.extractedText,
-                  buttonText: "Upload"
+                  buttonText: "Upload",
+                  resultString: "Extracted Text:"
+                });
+                this.ocShowAlert("File Uploaded Succesfully", "#3089cf");
+                let fileUrl = res.data.imageUrl;
+              }
+            }
+          })
+          .catch((error) => {
+            this.ocShowAlert(error, "red");
+          });
+      } else {
+        this.ocShowAlert("Please upload a valid image file", "red");
+        this.setState({ loading: false, buttonText: "Upload" });
+      }
+  }else if(type === "pdfUpload"){
+      this.setState({
+        loading: true,
+        buttonText: "Uploading",
+        wordList: "",
+        resultString: "Extracting text, Please Wait..."
+      });
+      this.buttonText = "Uploading";
+      const data = new FormData();
+      //if file selected
+      if (this.state.selectedFile) {
+        data.append(
+          "image",
+          this.state.selectedFile,
+          this.state.selectedFile.name
+        ); //setting image formdata object: uploaded file
+        axios
+          .post("https://virtualassistant123.azurewebsites.net/api/image/upload", data, {
+            headers: {
+              "Accept-Language": "en-US,en;q=0.8",
+              accept: "application/json",
+              "Content-Type": `multipart/form-data; boundary=${data._boundary}`,
+              "Access-Control-Allow-Origin": "*"
+            }
+          })
+          .then((res) => {
+            if (res.status === 200) {
+              if (res.data.error) {
+                //file size was larger than 2mb
+                if ("LIMIT_FILE_SIZE" === res.data.error.code) {
+                  this.ocShowAlert("Max size: 2MB", "red");
+                  this.setState({ loading: false, buttonText: "Upload" });
+                } else {
+                  //if not, show error to user
+                
+                  this.ocShowAlert(res.data.error, "red");
+                  this.setState({ loading: false, buttonText: "Upload" });
+                }
+              } else {
+                let fileName = res.data;
+        
+                this.setState({
+                  loading: false,
+                  wordList: res.data.extractedText,
+                  buttonText: "Upload",
+                  resultString: "Extracted text:"
                 });
                 this.ocShowAlert("File Uploaded Succesfully", "#3089cf");
                 let fileUrl = res.data.imageUrl;
@@ -207,6 +214,9 @@ export default class Home extends Component {
                 />
               </div>
               <div className="home__card__result">
+                <div className="home__card__result">
+                  <h3 className="home__card__result--text">{this.state.resultString}</h3>
+                </div>
                 <h3 className="home__card__result--text">
                   {this.state.wordList}
                 </h3>
@@ -232,11 +242,9 @@ export default class Home extends Component {
                 onClick={this.singleFileUploadHandler}
                 disabled={this.state.loading}
               >
-                Upload
+                {this.state.buttonText}
               </button>
-              <div className="home__card__result">
-                <h3 className="home__card__result--text">Result</h3>
-              </div>
+        
             </div>
           </form>
         </div>
