@@ -60,9 +60,5 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(port, () => {
-  console.log("THIS STATEMENT RUNS BEFORE CALLING MULTER");
-  console.log("testing1: GOOGLE APPLICATION CREDENTIALS: " + process.env.GOOGLE_APPLICATION_CREDENTIALS);
-  console.log("testing1: BUCKET NAME" + process.env.GCS_BUCKET);
-  console.log("testing1: PROJECT ID" + process.env.GCLOUD_PROJECT);
   console.log(`virtualAssitant-OCR app listening on port ${port}`);
 });
