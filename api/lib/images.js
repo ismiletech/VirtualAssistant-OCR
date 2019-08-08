@@ -1,5 +1,5 @@
 const Storage = require('@google-cloud/storage');
-const CLOUD_BUCKET = process.env.GCS_BUCKET;
+const CLOUD_BUCKET = "cosmic-tenure-241517.appspot.com";
 const storage = Storage();
 const bucket = storage.bucket(CLOUD_BUCKET);
 

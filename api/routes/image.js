@@ -5,27 +5,21 @@ const express = require("express");
 
 const { Storage } = require("@google-cloud/storage");
 const router = express.Router();
+const CLOUD_BUCKET = "cosmic-tenure-241517.appspot.com";
 const images = require("../lib/images");
-console.log("THIS STATEMENT RUNS BEFORE CALLING MULTER");
-console.log("testing1: GOOGLE APPLICATION CREDENTIALS: " + process.env.GOOGLE_APPLICATION_CREDENTIALS);
-console.log("testing1: BUCKET NAME" + process.env.GCS_BUCKET);
-console.log("testing1: PROJECT ID" + process.env.GCLOUD_PROJECT);
 router.post("/upload", 
 images.multer.single('image'),
 images.sendUploadToGCS,
 (req, response, next) => {
       let data = req.body;
       //filename
-      console.log("testing2: GOOGLE APPLICATION CREDENTIALS: " + process.env.GOOGLE_APPLICATION_CREDENTIALS);
-      console.log("testing2: BUCKET NAME" + process.env.GCS_BUCKET);
-      console.log("testing2: PROJECT ID" + process.env.GCLOUD_PROJECT);
     async function extractText(){
       const vision = require('@google-cloud/vision').v1;
       const client = new vision.ImageAnnotatorClient();
       const outputPrefix = 'results'
       const fileName = req.file.cloudStorageObject;
-      const gcsSourceUri = `gs://${process.env.GCS_BUCKET}/${fileName}`;
-      const gcsDestinationUri = `gs://${process.env.GCS_BUCKET}/`;
+      const gcsSourceUri = `gs://${CLOUD_BUCKET}/${fileName}`;
+      const gcsDestinationUri = `gs://${CLOUD_BUCKET}/`;
       const inputConfig = {
         // Supported mime_types are: 'application/pdf' and 'image/tiff'
         mimeType: 'application/pdf',
@@ -104,7 +98,7 @@ images.sendUploadToGCS
     const vision = require('@google-cloud/vision').v1;
     const client = new vision.ImageAnnotatorClient();
     const fileName = req.file.cloudStorageObject;
-    const gcsSourceUri = `gs://${process.env.GCS_BUCKET}/${fileName}`;
+    const gcsSourceUri = `gs://${CLOUD_BUCKET}/${fileName}`;
     const [result] = await client.textDetection(gcsSourceUri);
     const detections = result.textAnnotations;
     var extractedText = "";
