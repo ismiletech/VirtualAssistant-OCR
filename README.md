@@ -9,6 +9,6 @@
 3. a ```.json``` file should be downloaded to your local machine, now take that ```.json``` file and move it the root of your cloned folder.
 
 4. go to the cloned repo, make a ```.env``` file in the root folder, and give it this key/value:
-* ```GOOGLE_APPLICATION_CREDENTIALS``` Give it the value of the absolute path to your json file(which was downloaded to your local machine, see step 2 and 3) containing all your Google Cloud credentials
+* ```GOOGLE_APPLICATION_CREDENTIALS```: Give it the value of the absolute path to your json file(which was downloaded to your local machine, see step 2 and 3) containing all your Google Cloud credentials
 5. now run ```npm install``` in the terminal/command line
 6. run ```npm start``` and go to ```http://localhost:3000```
