@@ -1,5 +1,5 @@
 const Storage = require('@google-cloud/storage');
-const CLOUD_BUCKET = process.env.GCS_BUCKET;
+const CLOUD_BUCKET = "cosmic-tenure-241517.appspot.com";
 const storage = Storage();
 const bucket = storage.bucket(CLOUD_BUCKET);
 
@@ -10,7 +10,7 @@ function getPublicUrl(filename){
 //express middleware that will automatically pass uploads to Cloud Storage
 
 function sendUploadToGCS(req, res, next){
-    console.log("THE CLOUD BUCKET IS: " + CLOUD_BUCKET);
+  
 
     if(!req.file){
         return next();
@@ -18,7 +18,7 @@ function sendUploadToGCS(req, res, next){
 
     const gcsname = Date.now() + req.file.originalname;
     const file =  bucket.file(gcsname);
-    console.log(gcsname);
+
     //uploading the file to Google Cloud 
     const stream = file.createWriteStream({
         metadata: {
@@ -34,14 +34,14 @@ function sendUploadToGCS(req, res, next){
     stream.on("finish", () => {
         req.file.cloudStorageObject = gcsname;
         file.makePublic().then(() => {
-            console.log("THE PUBLIC URL IS: " + getPublicUrl(gcsname));
+            
             req.file.cloudStoragePublicUrl = getPublicUrl(gcsname);
             next();
         })
     });
-    console.log("passing1");
+  
     stream.end(req.file.buffer);
-    console.log("passing2");
+
 
 }
 
