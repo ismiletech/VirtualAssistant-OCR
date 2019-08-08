@@ -13,5 +13,5 @@
 * ```GOOGLE_APPLICATION_CREDENTIALS``` Give it the value of the absolute path to your json file(which was downloaded to your local machine, see step 3) containing all your Google Cloud credentials
 * ```GCS_BUCKET``` Give it the value of your bucket name(see step 4)
 * ```GCLOUD_PROJECT``` Give it the value of your project ID(see step 5)
-5. now run ```npm install``` in the termial/command line
+5. now run ```npm install``` in the terminal/command line
 6. run ```npm start``` and go to ```http://localhost:3000```
