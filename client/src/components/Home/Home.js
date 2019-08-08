@@ -12,7 +12,7 @@ const override = css`
   border-color: red;
 `;
 var port = 4000;
-axios.defaults.baseURL = "https://virtualassistant123.azurewebsites.net";
+axios.defaults.baseURL = "https://cosmic-tenure-241517.appspot.com";
 
 export default class Home extends Component {
   constructor(props) {
@@ -59,7 +59,7 @@ export default class Home extends Component {
           this.state.selectedFile.name
         ); //setting image formdata object: uploaded file
         axios
-          .post("https://virtualassistant123.azurewebsites.net/api/image/uploadImage", data, {
+          .post("https://cosmic-tenure-241517.appspot.com/api/image/uploadImage", data, {
             headers: {
               "Accept-Language": "en-US,en;q=0.8",
               accept: "application/json",
@@ -118,7 +118,7 @@ export default class Home extends Component {
           this.state.selectedFile.name
         ); //setting image formdata object: uploaded file
         axios
-          .post("https://virtualassistant123.azurewebsites.net/api/image/upload", data, {
+          .post("https://cosmic-tenure-241517.appspot.com/api/image/upload", data, {
             headers: {
               "Accept-Language": "en-US,en;q=0.8",
               accept: "application/json",
